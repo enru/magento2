@@ -732,7 +732,8 @@ class Request extends \Laminas\Http\PhpEnvironment\Request
         if ($checkProxy && $this->getServer('HTTP_CLIENT_IP') != null) {
             $ip = $this->getServer('HTTP_CLIENT_IP');
         } elseif ($checkProxy && $this->getServer('HTTP_X_FORWARDED_FOR') != null) {
-            $ip = $this->getServer('HTTP_X_FORWARDED_FOR');
+            $ipList = explode(',', $this->getServer('HTTP_X_FORWARDED_FOR'));
+            $ip=trim(array_pop($ipList));
         } else {
             $ip = $this->getServer('REMOTE_ADDR');
         }
